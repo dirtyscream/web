@@ -1,0 +1,25 @@
+public class PasswordEncryption {
+    public static int countDistinctSymbols(String password, int k) {
+        int count = 0;
+        char[] passwordChars = password.toCharArray();
+        boolean[] deleted = new boolean[passwordChars.length];
+        for (int i = 0; i < passwordChars.length; i++) {
+            if (!deleted[i]) {
+                count++;
+                for (int j = i + 1; j < passwordChars.length; j++) {
+                    if (passwordChars[i] == passwordChars[j]) {
+                        deleted[j] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < passwordChars.length; i++) {
+            if (!deleted[i] && k > 0) {
+                k--;
+                deleted[i] = true;
+                count--;
+            }
+        }
+        return count;
+    }
+}
